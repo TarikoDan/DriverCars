@@ -13,6 +13,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/drivers")
+@CrossOrigin(origins = "http://localhost:4200")
 public class DriverController {
 
     private final IDriverService driverService;

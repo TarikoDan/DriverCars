@@ -14,6 +14,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/licenses")
+@CrossOrigin(origins = "http://localhost:4200")
 public class LicenseController {
 
     private final ILicenseService licenseService;
