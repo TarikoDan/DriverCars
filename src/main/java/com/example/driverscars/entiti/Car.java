@@ -16,14 +16,15 @@ import javax.validation.constraints.Positive;
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    private int id;
     @NotBlank
-    String model;
+    private String model;
     @Positive
     @Min(1900)
-    int year;
+    private int year;
 
-    @ManyToOne( targetEntity = Driver.class, optional = false)
+    @ManyToOne( fetch = FetchType.LAZY, targetEntity = Driver.class)
+    @JoinColumn(name = "driver_id")
     Driver driver;
 
 }

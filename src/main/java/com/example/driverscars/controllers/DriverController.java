@@ -29,6 +29,13 @@ public class DriverController {
         return driverService.insert(driver);
     }
 
+    @PostMapping("/address/{addressId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Driver insertWithAddress(@RequestBody @Valid Driver driver,
+                                    @PathVariable int addressId) {
+        return driverService.insert(driver, addressId);
+    }
+
     @GetMapping
     public List<Driver> getAll() {
         return driverService.getAll();

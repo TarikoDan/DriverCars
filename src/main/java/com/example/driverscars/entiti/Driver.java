@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -17,19 +19,29 @@ import java.util.List;
 public class Driver {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    private int id;
     @NotBlank
-    String name;
+    private String name;
     @Email
-    String email;
+    private String email;
 
-    @OneToOne
+    @OneToOne(optional = true,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JoinColumn(name = "license_id")
     @JsonIgnore
     License license;
 
-    @OneToMany(targetEntity = Car.class)
-    @JoinColumn(name = "driver_id")
+    @OneToMany(mappedBy = "driver", targetEntity = Car.class)
     @JsonIgnore
-    List<Car> cars;
+    Set<Car> cars = new HashSet<>();
+
+    @ManyToMany()
+    @JsonIgnore
+    @JoinTable(name = "DRIVER_ADDRESS"
+            ,joinColumns = @JoinColumn(name = "driver_id", nullable = false, updatable = false)
+            ,inverseJoinColumns = @JoinColumn(name = "address_id", nullable = false, updatable = false)
+    )
+    Set<Address> addresses = new HashSet<>();
 
 }

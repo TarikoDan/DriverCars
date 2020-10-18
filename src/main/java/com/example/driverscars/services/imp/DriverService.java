@@ -1,11 +1,14 @@
 package com.example.driverscars.services.imp;
 
+import com.example.driverscars.dao.AddressDAO;
 import com.example.driverscars.dao.DriverDao;
+import com.example.driverscars.entiti.Address;
 import com.example.driverscars.entiti.Driver;
 import com.example.driverscars.services.IDriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -13,9 +16,19 @@ public class DriverService implements IDriverService {
 
     @Autowired
     DriverDao driverDao;
+    @Autowired
+    AddressDAO addressDAO;
 
     @Override
     public Driver insert(Driver driver) {
+        return driverDao.save(driver);
+    }
+
+    @Override
+    public Driver insert(Driver driver, int addressId) {
+        final Address address = addressDAO.findById(addressId).orElseThrow(() ->
+                new NullPointerException("No such Address with Id: " + addressId));
+        driver.getAddresses().add(address);
         return driverDao.save(driver);
     }
 

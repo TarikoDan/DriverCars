@@ -24,6 +24,6 @@ public class License {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
-    @OneToOne
+    @OneToOne(mappedBy = "license")
     private Driver driver;
 }
