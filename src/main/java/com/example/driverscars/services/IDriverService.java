@@ -12,6 +12,8 @@ public interface IDriverService {
 
     List<Driver> getAll();
 
+    List<Driver> getByAddress(int addressId);
+
     Driver getById(int id);
 
     Driver edit (int id, Driver driver);

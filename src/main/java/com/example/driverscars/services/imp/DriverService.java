@@ -38,6 +38,11 @@ public class DriverService implements IDriverService {
     }
 
     @Override
+    public List<Driver> getByAddress(int addressId) {
+        return driverDao.getDriversByAddressId(addressId);
+    }
+
+    @Override
     public Driver getById(int id) {
         return driverDao
                 .findById(id)

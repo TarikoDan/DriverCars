@@ -41,6 +41,12 @@ public class DriverController {
         return driverService.getAll();
     }
 
+    @GetMapping("/address/{addressId}")
+    public List<Driver> getByAddress(@PathVariable int addressId) {
+
+        return driverService.getByAddress(addressId);
+    }
+
     @GetMapping(value = "/{id}")
     public Driver getById(@PathVariable int id) {
         return driverService.getById(id);
