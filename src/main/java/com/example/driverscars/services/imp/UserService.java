@@ -30,9 +30,9 @@ public class UserService implements IUserService, UserDetailsService {
             throw new RuntimeException("User with this email already exists");
         }
         /* перевірити чи починається роль з "ROLE_" */
-//        if ((user.getRole() == null) || !user.getRole().startsWith("ROLE_")) {
-//            throw new RuntimeException("User role should start with 'ROLE_'");
-//        }
+        if ((user.getRole() == null) || !user.getRole().startsWith("ROLE_")) {
+            throw new RuntimeException("User role should start with 'ROLE_'");
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         User userDB = userRequestToUser(user);
         userDAO.saveAndFlush(userDB);      /*saving new User to DB*/
@@ -94,7 +94,7 @@ public class UserService implements IUserService, UserDetailsService {
                 .surName(user.getSurName())
                 .email(user.getEmail())
                 .password(user.getPassword())
-//                .role(user.getRole())
+                .role(user.getRole())
                 .birthday(birthDate)
                 .build();
 

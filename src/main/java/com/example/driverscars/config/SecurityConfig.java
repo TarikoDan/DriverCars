@@ -36,7 +36,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/webjars/**",
             "/h2/**",
 //            "/users/**",
-            "/addresses/**"
     };
 
     private static final String[] ALLOWED_TYPES = {
@@ -113,12 +112,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(AUTH_WHITELIST)
                 .permitAll()
                 .antMatchers(HttpMethod.POST, "/users/**").anonymous()
+                .antMatchers(HttpMethod.POST, "/licenses/**").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.GET).authenticated()
                 .anyRequest()
                 .authenticated()
-//                .antMatchers(HttpMethod.GET).authenticated()
-//                .antMatchers(HttpMethod.POST).hasRole("ADMIN")
-//                .and()
-//                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .and()
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 ;
     }
 
